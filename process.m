@@ -42,7 +42,7 @@ function out = process(data)
     end
     
     %output all valid points
-    out = zeros(count, 1);
+    out = zeros(count, 6);
     ind = 1;
     for i = 1 : n
         if f(i, 1) ~= 0 &&...
