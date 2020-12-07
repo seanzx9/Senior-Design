@@ -31,7 +31,18 @@ function out = process(data)
         end
     end
     
-    %return all values not at 0
+    %count valid points to preallocate
+    count = 0;
+    for i = 1 : n
+        if f(i, 1) ~= 0 &&...
+           f(i, 2) ~= 0 &&...
+           f(i, 3) ~= 0
+            count = count + 1;
+        end
+    end
+    
+    %output all valid points
+    out = zeros(count, 1);
     ind = 1;
     for i = 1 : n
         if f(i, 1) ~= 0 &&...
