@@ -67,7 +67,7 @@ subplot(2, 4, 7), dispPtCld(I270, '270 degrees');
 subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
 
 %3D stitch all point clouds
-% obj = stitch(I0_depth, I45_depth);
+obj = stitch(I0, I45);
 % obj = stitch(obj, I90_depth);
 % obj = stitch(obj, I135_depth);
 % obj = stitch(obj, I180_depth);
