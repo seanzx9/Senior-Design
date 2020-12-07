@@ -57,20 +57,14 @@ I270 = process(I270);
 I315 = process(I315);
 
 %output individual data
-subplot(2, 4, 1), dispPtCld(I0, '0 degrees');
-subplot(2, 4, 2), dispPtCld(I45, '45 degrees');
-subplot(2, 4, 3), dispPtCld(I90, '90 degrees');
-subplot(2, 4, 4), dispPtCld(I135, '135 degrees');
-subplot(2, 4, 5), dispPtCld(I180, '180 degrees');
-subplot(2, 4, 6), dispPtCld(I225, '225 degrees');
-subplot(2, 4, 7), dispPtCld(I270, '270 degrees');
-subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
+% subplot(2, 4, 1), dispPtCld(I0, '0 degrees');
+% subplot(2, 4, 2), dispPtCld(I45, '45 degrees');
+% subplot(2, 4, 3), dispPtCld(I90, '90 degrees');
+% subplot(2, 4, 4), dispPtCld(I135, '135 degrees');
+% subplot(2, 4, 5), dispPtCld(I180, '180 degrees');
+% subplot(2, 4, 6), dispPtCld(I225, '225 degrees');
+% subplot(2, 4, 7), dispPtCld(I270, '270 degrees');
+% subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
 
 %3D stitch all point clouds
-obj = stitch(I0, I45);
-% obj = stitch(obj, I90_depth);
-% obj = stitch(obj, I135_depth);
-% obj = stitch(obj, I180_depth);
-% obj = stitch(obj, I225_depth);
-% obj = stitch(obj, I270_depth);
-% obj = stitch(obj, I315_depth);
+obj = stitch(I0, I45, I90, I135, I180, I225, I270, I315);
