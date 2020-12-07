@@ -35,7 +35,6 @@ function data = getData()
         data = [pointCloud, rgbPoints];
     end
     
-    dispPtCld(data, 'test');
     %stop streaming
     pipe.stop();
 end

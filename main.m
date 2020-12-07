@@ -1,5 +1,6 @@
 %choice = input('\n(1) Live\n(2) Saved\n\n>>> ');
 choice = 2;
+
 if choice == 1
     %get LIVE capture from camera 
     I0 = getData(); 

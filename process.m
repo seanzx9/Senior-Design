@@ -1,9 +1,9 @@
 %bound data values and subtract extra points
 function out = process(data)  
     [n, m] = size(data);
-    f = zeros(n, m);
     
     %set bounds in data and remove extra
+    f = zeros(n, m);
     for i = 1 : n
         if data(i, 1) >= -0.15 && data(i, 1) <= 0.15 &&... %x bounds
            data(i, 2) >= 0 && data(i, 2) <= 1 &&...        %y bounds
