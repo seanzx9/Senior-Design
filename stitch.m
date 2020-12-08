@@ -117,7 +117,7 @@ function f = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
     pc = [pc0, pc45, pc90, pc135, pc180, pc225, pc270, pc315];
     
     %merge clouds
-    mergeSize = 0.00001;
+    mergeSize = 0.1;
     pcRef = pc(refInd);
     for i = 1 : 8
         if i ~= refInd
@@ -125,6 +125,7 @@ function f = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
         end
     end
     
+    figure;
     subplot(2, 4, 1), pcshow(pc(1));
     xlabel('X');
     ylabel('Y');
@@ -158,10 +159,11 @@ function f = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
     ylabel('Y');
     zlabel('Z');
     
-%     pcshow(pcMerged);
-%     xlabel('X');
-%     ylabel('Y');
-%     zlabel('Z');
+    figure;
+    pcshow(pcMerged);
+    xlabel('X');
+    ylabel('Y');
+    zlabel('Z');
       
     f = I0;
 end
