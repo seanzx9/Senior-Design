@@ -1,5 +1,5 @@
 function pcMerged = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
-    %find largest point cloud for reference
+    %find largest point cloud for reference point cloud
     [n1, ~] = size(I0);
     [n2, ~] = size(I45);
     [n3, ~] = size(I90);
@@ -51,7 +51,24 @@ function pcMerged = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
     rgb = [I315(:, 4), I315(:, 5), I315(:, 6)];
     pc315 = pcdenoise(pointCloud(xyz, 'color', rgb));
     
-    %rotate all point clouds on y axis to orient object
+    %translate all point clouds
+    x = 0.15;
+    z = -0.3;
+    A = [1, 0, 0, 0;
+         0, 1, 0, 0;
+         0, 0, 1, 0;
+         x, 0, z, 1];
+    tform = affine3d(A);
+    pc0 = pctransform(pc0, tform);
+    pc45 = pctransform(pc45, tform);
+    pc90 = pctransform(pc90, tform);
+    pc135 = pctransform(pc135, tform);
+    pc180 = pctransform(pc180, tform);
+    pc225 = pctransform(pc225, tform);
+    pc270 = pctransform(pc270, tform);
+    pc315 = pctransform(pc315, tform);    
+    
+    %rotate all point clouds on y axis
     %rotate -45 deg
     a = -(pi / 4);
     A = [cos(a), 0, -sin(a), 0;
@@ -119,7 +136,7 @@ function pcMerged = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
     pc = [pc0, pc45, pc90, pc135, pc180, pc225, pc270, pc315];
     
     %merge clouds
-    mergeSize = 0.1;
+    mergeSize = 0.01;
     pcRef = pc(refInd);
     for i = 1 : 8
         if i ~= refInd
@@ -129,38 +146,14 @@ function pcMerged = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
     
     %individual point clouds
     figure;
-    subplot(2, 4, 1), pcshow(pc(1));
-    xlabel('X');
-    ylabel('Y');
-    zlabel('Z');
-    subplot(2, 4, 2), pcshow(pc(2));
-    xlabel('X');
-    ylabel('Y');
-    zlabel('Z');
-    subplot(2, 4, 3), pcshow(pc(3));
-    xlabel('X');
-    ylabel('Y');
-    zlabel('Z');
-    subplot(2, 4, 4), pcshow(pc(4));
-    xlabel('X');
-    ylabel('Y');
-    zlabel('Z');
-    subplot(2, 4, 5), pcshow(pc(5));
-    xlabel('X');
-    ylabel('Y');
-    zlabel('Z');
-    subplot(2, 4, 6), pcshow(pc(6));
-    xlabel('X');
-    ylabel('Y');
-    zlabel('Z');
-    subplot(2, 4, 7), pcshow(pc(7));
-    xlabel('X');
-    ylabel('Y');
-    zlabel('Z');
-    subplot(2, 4, 8), pcshow(pc(8));
-    xlabel('X');
-    ylabel('Y');
-    zlabel('Z');
+    subplot(2, 4, 1), dispPtCld(pc(1), '0 degrees');
+    subplot(2, 4, 2), dispPtCld(pc(2), '45 degrees');
+    subplot(2, 4, 3), dispPtCld(pc(3), '90 degrees');
+    subplot(2, 4, 4), dispPtCld(pc(4), '135 degrees');
+    subplot(2, 4, 5), dispPtCld(pc(5), '180 degrees');
+    subplot(2, 4, 6), dispPtCld(pc(6), '225 degrees');
+    subplot(2, 4, 7), dispPtCld(pc(7), '270 degrees');
+    subplot(2, 4, 8), dispPtCld(pc(8), '315 degrees');
     
     %merged point cloud
     figure;
