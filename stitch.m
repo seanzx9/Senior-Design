@@ -1,74 +1,167 @@
-function f = stitch(I1, I2, I3, I4, I5, I6, I7, I8)
+function f = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
+    %find largest point cloud for reference
+    [n1, ~] = size(I0);
+    [n2, ~] = size(I45);
+    [n3, ~] = size(I90);
+    [n4, ~] = size(I135);
+    [n5, ~] = size(I180);
+    [n6, ~] = size(I225);
+    [n7, ~] = size(I270);
+    [n8, ~] = size(I315);
+    [~, refInd] = max([n1, n2, n3, n4, n5, n6, n7, n8]);
+
     %create pointCloud object from img 1 data
-    xyz1 = [I1(:, 1), I1(:, 2), I1(:, 3)];
-    rgb1 = [I1(:, 4), I1(:, 5), I1(:, 6)];
-    pc1 = pointCloud(xyz1, 'color', rgb1);
+    xyz = [I0(:, 1), I0(:, 2), I0(:, 3)];
+    rgb = [I0(:, 4), I0(:, 5), I0(:, 6)];
+    pc0 = pcdenoise(pointCloud(xyz, 'color', rgb));
     
     %create pointCloud object from img 2 data
-    xyz2 = [I2(:, 1), I2(:, 2), I2(:, 3)];
-    rgb2 = [I2(:, 4), I2(:, 5), I2(:, 6)];
-    pc2 = pointCloud(xyz2, 'color', rgb2);
+    xyz = [I45(:, 1), I45(:, 2), I45(:, 3)];
+    rgb = [I45(:, 4), I45(:, 5), I45(:, 6)];
+    pc45 = pcdenoise(pointCloud(xyz, 'color', rgb));
+    
+    %rotate -45 deg
+    a = -(pi / 4);
+    A = [cos(a), 0, -sin(a), 0;
+         0, 1, 0, 0;
+         sin(a), 0, cos(a), 0;
+         0, 0, 0, 1];
+    tform = affine3d(A);
+    pc45 = pctransform(pc45, tform);
     
     %create pointCloud object from img 3 data
-    xyz3 = [I3(:, 1), I3(:, 2), I3(:, 3)];
-    rgb3 = [I3(:, 4), I3(:, 5), I3(:, 6)];
-    pc3 = pointCloud(xyz3, 'color', rgb3);
+    xyz = [I90(:, 1), I90(:, 2), I90(:, 3)];
+    rgb = [I90(:, 4), I90(:, 5), I90(:, 6)];
+    pc90 = pcdenoise(pointCloud(xyz, 'color', rgb));
+    
+    %rotate -90 deg
+    a = -(pi / 2);
+    A = [cos(a), 0, -sin(a), 0;
+         0, 1, 0, 0;
+         sin(a), 0, cos(a), 0;
+         0, 0, 0, 1];
+    tform = affine3d(A);
+    pc90 = pctransform(pc90, tform);
     
     %create pointCloud object from img 4 data
-    xyz4 = [I4(:, 1), I4(:, 2), I4(:, 3)];
-    rgb4 = [I4(:, 4), I4(:, 5), I4(:, 6)];
-    pc4 = pointCloud(xyz4, 'color', rgb4);
+    xyz = [I135(:, 1), I135(:, 2), I135(:, 3)];
+    rgb = [I135(:, 4), I135(:, 5), I135(:, 6)];
+    pc135 = pcdenoise(pointCloud(xyz, 'color', rgb));
+    
+    %rotate 135 deg
+    a = -(3*pi/4);
+    A = [cos(a), 0, -sin(a), 0;
+         0, 1, 0, 0;
+         sin(a), 0, cos(a), 0;
+         0, 0, 0, 1];
+    tform = affine3d(A);
+    pc135 = pctransform(pc135, tform);
     
     %create pointCloud object from img 5 data
-    xyz5 = [I5(:, 1), I5(:, 2), I5(:, 3)];
-    rgb5 = [I5(:, 4), I5(:, 5), I5(:, 6)];
-    pc5 = pointCloud(xyz5, 'color', rgb5);
+    xyz = [I180(:, 1), I180(:, 2), I180(:, 3)];
+    rgb = [I180(:, 4), I180(:, 5), I180(:, 6)];
+    pc180 = pcdenoise(pointCloud(xyz, 'color', rgb));
+    
+    %rotate 180 deg
+    a = pi;
+    A = [cos(a), 0, -sin(a), 0;
+         0, 1, 0, 0;
+         sin(a), 0, cos(a), 0;
+         0, 0, 0, 1];
+    tform = affine3d(A);
+    pc180 = pctransform(pc180, tform);
     
     %create pointCloud object from img 6 data
-    xyz6 = [I6(:, 1), I6(:, 2), I6(:, 3)];
-    rgb6 = [I6(:, 4), I6(:, 5), I6(:, 6)];
-    pc6 = pointCloud(xyz6, 'color', rgb6);
+    xyz = [I225(:, 1), I225(:, 2), I225(:, 3)];
+    rgb = [I225(:, 4), I225(:, 5), I225(:, 6)];
+    pc225 = pcdenoise(pointCloud(xyz, 'color', rgb));
+    
+    %rotate -225 deg
+    a = -(5 * pi / 4);
+    A = [cos(a), 0, -sin(a), 0;
+         0, 1, 0, 0;
+         sin(a), 0, cos(a), 0;
+         0, 0, 0, 1];
+    tform = affine3d(A);
+    pc225 = pctransform(pc225, tform);
     
     %create pointCloud object from img 7 data
-    xyz7 = [I7(:, 1), I7(:, 2), I7(:, 3)];
-    rgb7 = [I7(:, 4), I7(:, 5), I7(:, 6)];
-    pc7 = pointCloud(xyz7, 'color', rgb7);
+    xyz = [I270(:, 1), I270(:, 2), I270(:, 3)];
+    rgb = [I270(:, 4), I270(:, 5), I270(:, 6)];
+    pc270 = pcdenoise(pointCloud(xyz, 'color', rgb));
+    
+    %rotate -270 deg
+    a = -(3 * pi / 2);
+    A = [cos(a), 0, -sin(a), 0;
+         0, 1, 0, 0;
+         sin(a), 0, cos(a), 0;
+         0, 0, 0, 1];
+    tform = affine3d(A);
+    pc270 = pctransform(pc270, tform);
     
     %create pointCloud object from img 8 data
-    xyz8 = [I8(:, 1), I8(:, 2), I8(:, 3)];
-    rgb8 = [I8(:, 4), I8(:, 5), I8(:, 6)];
-    pc8 = pointCloud(xyz8, 'color', rgb8);
+    xyz = [I315(:, 1), I315(:, 2), I315(:, 3)];
+    rgb = [I315(:, 4), I315(:, 5), I315(:, 6)];
+    pc315 = pcdenoise(pointCloud(xyz, 'color', rgb));
     
-    %downsample to improve accuracy and speed
-%     gridSize = 0.1;
-%     fixed = pcdownsample(pc1, 'gridAverage', gridSize);
-%     moving = pcdownsample(pc2, 'gridAverage', gridSize);
-%     
-%     %register data
-%     tform = pcregistericp(moving, fixed, 'Metric', 'pointToPlane', 'Extrapolate', true);
-%     ptCloudAligned = pctransform(pc1, tform);
-%     
-%     mergeSize = 0.015;
-%     ptCloudScene = pcmerge(pc1, ptCloudAligned, mergeSize);
-
-    figure
-    subplot(2, 2, 1), pcshow(pc1);
+    %rotate 45 deg
+    a = pi / 4;
+    A = [cos(a), 0, -sin(a), 0;
+         0, 1, 0, 0;
+         sin(a), 0, cos(a), 0;
+         0, 0, 0, 1];
+    tform = affine3d(A);
+    pc315 = pctransform(pc315, tform);
+    
+    %add all clouds to list
+    pc = [pc0, pc45, pc90, pc135, pc180, pc225, pc270, pc315];
+    
+    %merge clouds
+    mergeSize = 0.00001;
+    pcRef = pc(refInd);
+    for i = 1 : 8
+        if i ~= refInd
+           pcMerged = pcmerge(pcRef, pc(i), mergeSize); 
+        end
+    end
+    
+    subplot(2, 4, 1), pcshow(pc(1));
     xlabel('X');
     ylabel('Y');
     zlabel('Z');
-    drawnow;
-
-    subplot(2, 2, 3), pcshow(pc2);
+    subplot(2, 4, 2), pcshow(pc(2));
     xlabel('X');
     ylabel('Y');
     zlabel('Z');
-    drawnow;
-
-    subplot(2, 2, [2,4]), pcshow(ptCloudScene)
+    subplot(2, 4, 3), pcshow(pc(3));
     xlabel('X');
     ylabel('Y');
     zlabel('Z');
-    drawnow;
+    subplot(2, 4, 4), pcshow(pc(4));
+    xlabel('X');
+    ylabel('Y');
+    zlabel('Z');
+    subplot(2, 4, 5), pcshow(pc(5));
+    xlabel('X');
+    ylabel('Y');
+    zlabel('Z');
+    subplot(2, 4, 6), pcshow(pc(6));
+    xlabel('X');
+    ylabel('Y');
+    zlabel('Z');
+    subplot(2, 4, 7), pcshow(pc(7));
+    xlabel('X');
+    ylabel('Y');
+    zlabel('Z');
+    subplot(2, 4, 8), pcshow(pc(8));
+    xlabel('X');
+    ylabel('Y');
+    zlabel('Z');
+    
+%     pcshow(pcMerged);
+%     xlabel('X');
+%     ylabel('Y');
+%     zlabel('Z');
       
-    f = I1;
+    f = I0;
 end
