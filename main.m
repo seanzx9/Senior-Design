@@ -46,6 +46,17 @@ else
     I315 = load('imgData/I315.mat').I315;
 end
 
+%raw capture data
+figure;
+subplot(2, 4, 1), dispPtCld(I0, '0 degrees');
+subplot(2, 4, 2), dispPtCld(I45, '45 degrees');
+subplot(2, 4, 3), dispPtCld(I90, '90 degrees');
+subplot(2, 4, 4), dispPtCld(I135, '135 degrees');
+subplot(2, 4, 5), dispPtCld(I180, '180 degrees');
+subplot(2, 4, 6), dispPtCld(I225, '225 degrees');
+subplot(2, 4, 7), dispPtCld(I270, '270 degrees');
+subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
+
 %process capture data 
 I0 = process(I0);
 I45 = process(I45);
@@ -56,15 +67,16 @@ I225 = process(I225);
 I270 = process(I270);
 I315 = process(I315);
 
-%output individual data
-% subplot(2, 4, 1), dispPtCld(I0, '0 degrees');
-% subplot(2, 4, 2), dispPtCld(I45, '45 degrees');
-% subplot(2, 4, 3), dispPtCld(I90, '90 degrees');
-% subplot(2, 4, 4), dispPtCld(I135, '135 degrees');
-% subplot(2, 4, 5), dispPtCld(I180, '180 degrees');
-% subplot(2, 4, 6), dispPtCld(I225, '225 degrees');
-% subplot(2, 4, 7), dispPtCld(I270, '270 degrees');
-% subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
+%processed capture data
+figure;
+subplot(2, 4, 1), dispPtCld(I0, '0 degrees');
+subplot(2, 4, 2), dispPtCld(I45, '45 degrees');
+subplot(2, 4, 3), dispPtCld(I90, '90 degrees');
+subplot(2, 4, 4), dispPtCld(I135, '135 degrees');
+subplot(2, 4, 5), dispPtCld(I180, '180 degrees');
+subplot(2, 4, 6), dispPtCld(I225, '225 degrees');
+subplot(2, 4, 7), dispPtCld(I270, '270 degrees');
+subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
 
-%3D stitch all point clouds
+%3D stitch all point clouds to one
 obj = stitch(I0, I45, I90, I135, I180, I225, I270, I315);
