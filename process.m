@@ -20,7 +20,7 @@ function out = process(data)
     %remove blue points
     for i = 1 : n
         if data(i, 4) < 65 &&...  %red channel
-           data(i, 5) < 140 &&... %green channel
+           data(i, 5) < 150 &&... %green channel
            data(i, 6) > 70        %blue channel
             f(i, 1) = 0;
             f(i, 2) = 0;
