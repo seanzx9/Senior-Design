@@ -104,8 +104,8 @@ function f = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
     rgb = [I315(:, 4), I315(:, 5), I315(:, 6)];
     pc315 = pcdenoise(pointCloud(xyz, 'color', rgb));
     
-    %rotate 45 deg
-    a = pi / 4;
+    %rotate -315 deg
+    a = -(7 * pi / 4);
     A = [cos(a), 0, -sin(a), 0;
          0, 1, 0, 0;
          sin(a), 0, cos(a), 0;
