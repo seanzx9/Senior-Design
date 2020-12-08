@@ -3,6 +3,7 @@ function dispPtCld(data, t)
     [~, m] = size(data);
     
     if m == 6
+        %using packetized data from getData
         x = data(:, 1);
         y = data(:, 2);
         z = data(:, 3);
@@ -18,6 +19,7 @@ function dispPtCld(data, t)
         ylabel('Z');
         zlabel('Y');
     else
+        %using matlab pointCloud
         pcshow(data);
         grid on;
         title(t);
