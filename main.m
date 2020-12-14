@@ -80,3 +80,7 @@ subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
 
 %3D stitch all point clouds to one
 obj = stitch(I0, I45, I90, I135, I180, I225, I270, I315);
+
+%display full point cloud
+figure;
+dispPtCld(obj, 'Fully Merged Point Cloud');
