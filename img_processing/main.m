@@ -59,13 +59,21 @@ subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
 
 %process capture data 
 I0 = process(I0);
+save('ptCldData/I0.mat', 'I0');
 I45 = process(I45);
+save('ptCldData/I45.mat', 'I45');
 I90 = process(I90);
+save('ptCldData/I90.mat', 'I90');
 I135 = process(I135);
+save('ptCldData/I135.mat', 'I135');
 I180 = process(I180);
+save('ptCldData/I180.mat', 'I180');
 I225 = process(I225);
+save('ptCldData/I225.mat', 'I225');
 I270 = process(I270);
+save('ptCldData/I270.mat', 'I270');
 I315 = process(I315);
+save('ptCldData/I315.mat', 'I315');
 
 %processed capture data
 figure;
