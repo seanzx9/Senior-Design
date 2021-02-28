@@ -92,3 +92,7 @@ obj = stitch(I0, I45, I90, I135, I180, I225, I270, I315);
 %display full point cloud
 figure;
 dispPtCld(obj, 'Fully Merged Point Cloud');
+
+%convert point cloud to mesh
+
+%convert mesh to STL file
