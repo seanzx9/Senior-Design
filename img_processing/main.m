@@ -1,7 +1,10 @@
-%choice = input('\n(1) Live\n(2) Saved\n\n>>> ');
-choice = 2;
+%1 to capture new data, otherwise use new data
+capture = 0;
 
-if choice == 1
+%1 to display data, otherwise don't show
+display = 0;
+
+if capture == 1
     %get LIVE capture from camera 
     I0 = getData(); 
     save('imgData/I0.mat', 'I0');
@@ -47,15 +50,17 @@ else
 end
 
 %raw capture data
-figure;
-subplot(2, 4, 1), dispPtCld(I0, '0 degrees');
-subplot(2, 4, 2), dispPtCld(I45, '45 degrees');
-subplot(2, 4, 3), dispPtCld(I90, '90 degrees');
-subplot(2, 4, 4), dispPtCld(I135, '135 degrees');
-subplot(2, 4, 5), dispPtCld(I180, '180 degrees');
-subplot(2, 4, 6), dispPtCld(I225, '225 degrees');
-subplot(2, 4, 7), dispPtCld(I270, '270 degrees');
-subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
+if display == 1
+    figure;
+    subplot(2, 4, 1), dispPtCld(I0, '0 degrees');
+    subplot(2, 4, 2), dispPtCld(I45, '45 degrees');
+    subplot(2, 4, 3), dispPtCld(I90, '90 degrees');
+    subplot(2, 4, 4), dispPtCld(I135, '135 degrees');
+    subplot(2, 4, 5), dispPtCld(I180, '180 degrees');
+    subplot(2, 4, 6), dispPtCld(I225, '225 degrees');
+    subplot(2, 4, 7), dispPtCld(I270, '270 degrees');
+    subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
+end
 
 %process capture data 
 I0 = process(I0);
@@ -76,23 +81,36 @@ I315 = process(I315);
 save('ptCldData/I315.mat', 'I315');
 
 %processed capture data
-figure;
-subplot(2, 4, 1), dispPtCld(I0, '0 degrees');
-subplot(2, 4, 2), dispPtCld(I45, '45 degrees');
-subplot(2, 4, 3), dispPtCld(I90, '90 degrees');
-subplot(2, 4, 4), dispPtCld(I135, '135 degrees');
-subplot(2, 4, 5), dispPtCld(I180, '180 degrees');
-subplot(2, 4, 6), dispPtCld(I225, '225 degrees');
-subplot(2, 4, 7), dispPtCld(I270, '270 degrees');
-subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
+if display == 1
+    figure;
+    subplot(2, 4, 1), dispPtCld(I0, '0 degrees');
+    subplot(2, 4, 2), dispPtCld(I45, '45 degrees');
+    subplot(2, 4, 3), dispPtCld(I90, '90 degrees');
+    subplot(2, 4, 4), dispPtCld(I135, '135 degrees');
+    subplot(2, 4, 5), dispPtCld(I180, '180 degrees');
+    subplot(2, 4, 6), dispPtCld(I225, '225 degrees');
+    subplot(2, 4, 7), dispPtCld(I270, '270 degrees');
+    subplot(2, 4, 8), dispPtCld(I315, '315 degrees');
+end
 
 %3D stitch all point clouds to one
-obj = stitch(I0, I45, I90, I135, I180, I225, I270, I315);
+ptCld = stitch(I0, I45, I90, I135, I180, I225, I270, I315);
 
 %display full point cloud
-figure;
-dispPtCld(obj, 'Fully Merged Point Cloud');
+if display == 1
+    figure;
+    dispPtCld(ptCld, 'Fully Merged Point Cloud');
+end
 
 %convert point cloud to mesh
+mesh = ptCldToMesh(ptCld);
 
-%convert mesh to STL file
+%display mesh 
+if display == 1
+    figure;
+    title('Mesh');
+    plot(mesh);
+end
+
+%saves mesh as stl file
+meshToSTL(mesh);
