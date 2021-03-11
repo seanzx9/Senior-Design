@@ -1,6 +1,6 @@
 %get data from realsense depth camera
 %returns 921600x6 matrix=>[x, y, z, r, g, b]
-function data = getData()
+function data = captureData()
     %make pipeline object to manage streaming
     pointcloud = realsense.pointcloud();  
     pipe = realsense.pipeline();

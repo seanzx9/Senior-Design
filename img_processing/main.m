@@ -6,35 +6,35 @@ display = 0;
 
 if capture == 1
     %get LIVE capture from camera 
-    I0 = getData(); 
+    I0 = captureData(); 
     save('imgData/I0.mat', 'I0');
     disp('0 degrees saved...');
     pause;
-    I45 = getData(); 
+    I45 = captureData(); 
     save('imgData/I45.mat', 'I45');
     disp('45 degrees saved...');
     pause;
-    I90 = getData(); 
+    I90 = captureData(); 
     save('imgData/I90.mat', 'I90');
     disp('90 degrees saved...');
     pause;
-    I135 = getData(); 
+    I135 = captureData(); 
     save('imgData/I135.mat', 'I135');
     disp('135 degrees saved...');
     pause;
-    I180 = getData(); 
+    I180 = captureData(); 
     save('imgData/I180.mat', 'I180');
     disp('180 degrees saved...');
     pause;
-    I225 = getData(); 
+    I225 = captureData(); 
     save('imgData/I225.mat', 'I225');
     disp('225 degrees saved...');
     pause;
-    I270 = getData(); 
+    I270 = captureData(); 
     save('imgData/I270.mat', 'I270');
     disp('270 degrees saved...');
     pause;
-    I315 = getData(); 
+    I315 = captureData(); 
     save('imgData/I315.mat', 'I315');
     disp('315 degrees saved...');
 else
