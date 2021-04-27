@@ -1,6 +1,6 @@
 %converts 8 input data matrices to pointcloud objects and then
 %returns single merged point cloud
-function pcFinal = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
+function pcMerged = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
     %create pointCloud objects from input data
     %img 1 data
     xyz = [I0(:, 1), I0(:, 2), I0(:, 3)];
@@ -124,78 +124,83 @@ function pcFinal = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
     pc315 = pctransform(pc315, tform);
     
     %realign point clouds
-    
-    pc0_center = mean(pc0.Location);
-    pc45_center = mean(pc45.Location);
-    pc90_center = mean(pc90.Location);
-    pc135_center = mean(pc135.Location);
-    pc180_center = mean(pc180.Location);
-    pc225_center = mean(pc225.Location);
-    pc270_center = mean(pc270.Location);
-    pc315_center = mean(pc315.Location);
-
-    total = [pc0_center; pc45_center; pc90_center;
-    pc135_center; pc180_center; pc225_center; pc270_center;
-    pc315_center];
-
-
-    %add all clouds to list
-    pc = [pc0, pc45, pc90, pc135, pc180, pc225, pc270, pc315];
-    mergeSize = 0.001;
-    
     %translate 45 deg point cloud
-    x = total(1,1) - total(2,1);
-    y = total(1,3) - total(2,3);
-    pcInput = pc45;
-    pcTotal = pc0;
-
-    pcFinal = myMin(x, y, pcInput, pcTotal);
-
+    x = 0.153;
+    y = -0.082;
+    A = [1, 0, 0, 0;
+         0, 1, 0, 0;
+         0, 0, 1, 0;
+         x, 0, y, 1];
+    tform = affine3d(A);
+    pc45 = pctransform(pc45, tform);
+    
     %translate 90 deg point cloud
-    x = total(1,1) - total(3,1);
-    y = total(1,3) - total(2,3);
-    pcInput = pc90;
-    pcTotal = pcFinal;
-
-    pcFinal = myMin(x, y, pcInput, pcTotal);
-
+    x = 0.307;
+    y = -0.031;
+    A = [1, 0, 0, 0;
+         0, 1, 0, 0;
+         0, 0, 1, 0;
+         x, 0, y, 1];
+    tform = affine3d(A);
+    pc90 = pctransform(pc90, tform);
+        
     %translate 135 deg point cloud
-    x = total(1,1) - total(4,1);
-    y = total(1,3) - total(4,3);
-    pcInput = pc135;
-    pcTotal = pcFinal;
-
-    pcFinal = myMin(x, y, pcInput, pcTotal);
-
+    x = 0.384;
+    y = 0.111;
+    A = [1, 0, 0, 0;
+         0, 1, 0, 0;
+         0, 0, 1, 0;
+         x, 0, y, 1];
+    tform = affine3d(A);
+    pc135 = pctransform(pc135, tform);
+    
     %translate 180 deg point cloud
-    x = total(1,1) - total(5,1);
-    y = total(1,3) - total(5,3);
-    pcInput = pc180;
-    pcTotal = pcFinal;
-
-    pcFinal = myMin(x, y, pcInput, pcTotal);
+    x = 0.338;
+    y = 0.258;
+    A = [1, 0, 0, 0;
+         0, 1, 0, 0;
+         0, 0, 1, 0;
+         x, 0, y, 1];
+    tform = affine3d(A);
+    pc180 = pctransform(pc180, tform);
     
     %translate 225 deg point cloud
-    x = total(1,1) - total(6,1);
-    y = total(1,3) - total(6,3);
-    pcInput = pc225;
-    pcTotal = pcFinal;
-
-    pcFinal = myMin(x, y, pcInput, pcTotal);
-
+    x = 0.189;
+    y = 0.344;
+    A = [1, 0, 0, 0;
+         0, 1, 0, 0;
+         0, 0, 1, 0;
+         x, 0, y, 1];
+    tform = affine3d(A);
+    pc225 = pctransform(pc225, tform);
+    
     %translate 270 deg point cloud
-    x = total(1,1) - total(7,1);
-    y = total(1,3) - total(7,3);
-    pcInput = pc270;
-    pcTotal = pcFinal;
-
-    pcFinal = myMin(x, y, pcInput, pcTotal);
+    x = 0.033;
+    y = 0.305;
+    A = [1, 0, 0, 0;
+         0, 1, 0, 0;
+         0, 0, 1, 0;
+         x, 0, y, 1];
+    tform = affine3d(A);
+    pc270 = pctransform(pc270, tform);
     
     %translate 315 deg point cloud
-    x = total(1,1) - total(8,1);
-    y = total(1,3) - total(8,3);
-    pcInput = pc315;
-    pcTotal = pcFinal;
-
-    pcFinal = myMin(x, y, pcInput, pcTotal);
+    x = -0.048;
+    y = 0.155;
+    A = [1, 0, 0, 0;
+         0, 1, 0, 0;
+         0, 0, 1, 0;
+         x, 0, y, 1];
+    tform = affine3d(A);
+    pc315 = pctransform(pc315, tform);
+    
+    %add all clouds to list
+    pc = [pc0, pc45, pc90, pc135, pc180, pc225, pc270, pc315];
+    
+    %merge together all clouds
+    mergeSize = 0.001;
+    pcMerged = pcmerge(pc(1), pc(2), mergeSize);
+    for i = 2 : 8
+        pcMerged = pcmerge(pcMerged, pc(i), mergeSize); 
+    end
 end
