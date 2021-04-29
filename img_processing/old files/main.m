@@ -2,7 +2,7 @@
 capture = 0;
 
 %1 to display data, otherwise don't show
-display = 0;
+display = 1;
 
 if capture == 1
     %get LIVE capture from camera 
