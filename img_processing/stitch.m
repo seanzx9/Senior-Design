@@ -185,7 +185,7 @@ function pcStitched = stitch(I0, I45, I90, I135, I180, I225, I270, I315)
     pcStitched = pcMinMerge(x, z, pcInput, pcStitched);
     
     %remove noise from merged cloud
-     for i = 1 : 5
-         pcStitched = pcdenoise(pcStitched);
-     end
+    for i = 1 : 5
+        pcStitched = pcdenoise(pcStitched);
+    end
 end
