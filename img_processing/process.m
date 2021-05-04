@@ -6,7 +6,7 @@ function out = process(data)
     f = zeros(n, m);
     for i = 1 : n
         if data(i, 1) >= -0.15 && data(i, 1) <= 0.15 &&... %x bounds
-           data(i, 2) >= 0 && data(i, 2) <= 0.3 &&...        %y bounds
+           data(i, 2) >= 0 && data(i, 2) <= 0.3 &&...      %y bounds
            data(i, 3) >= 0.3 && data(i, 3) <= 0.45         %z bounds
             f(i, 1) = data(i, 1);
             f(i, 2) = data(i, 2);

@@ -1,45 +1,27 @@
-from PyQt5.QtWidgets import *
-from PyQt5.QtGui import *
-import sys
+from kivy.app import *
+from kivy.uix.recycleview import RecycleView
+from kivy.lang import Builder
+
+Builder.load_string('''
+<ExampleRV>:
+    viewclass: 'Button'
+    RecycleBoxLayout:
+        size_hint_y: None
+        height: self.minimum_height
+        orientation: 'vertical'
+''')
 
 
-class Gui(QWidget):
-    def __init__(self):
-        super().__init__()
-
-        #init ui contents
-        self.init_ui()
-
-    def init_ui(self):
-        #set font
-        QToolTip.setFont(QFont('SansSerif', 10))
-
-        #set window title
-        self.setWindowTitle('MTS 3D Scanner')
-
-        #maximize window
-        self.showMaximized()
-
-        #show window
-        self.show()
-
-    def closeEvent(self, event):
-        #show message
-        reply = QMessageBox.question(self, 'Message', "Are you sure to quit?",
-                                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
-
-        #handle response
-        if reply == QMessageBox.Yes:
-            event.accept()
-        else:
-            event.ignore()
+class Rv(RecycleView):
+    def __init__(self, **kwargs):
+        super(Rv, self).__init__(**kwargs)
+        self.data = [{'text': str(x)} for x in range(20)]
 
 
-def main():
-    app = QApplication(sys.argv)
-    gui = Gui()
-    sys.exit(app.exec_())
+class Gui(App):
+    def build(self):
+        return Rv()
 
 
 if __name__ == '__main__':
-    main()
+    Gui().run()
