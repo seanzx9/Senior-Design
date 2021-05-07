@@ -1,1 +1,0 @@
-All image capture and processing related files.

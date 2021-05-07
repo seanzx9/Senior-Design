@@ -1,1 +1,0 @@
-All hardware related files.
